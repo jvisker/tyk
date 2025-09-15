@@ -114,6 +114,9 @@ func (rc *ConnectionHandler) Disconnect() error {
 }
 
 func (rc *ConnectionHandler) recoverLoop(ctx context.Context, onReconnect func()) {
+	if onReconnect == nil {
+		onReconnect = func() {}
+	}
 	for {
 		select {
 		case <-ctx.Done():
